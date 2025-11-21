@@ -6,4 +6,4 @@ The root files produced from this class can be used along with root files from D
 
 
 
-For more updates please feel welcomed to visit my website at [ammelesayed.tech](https://ammelsayed.tech/).
+For more updates please feel welcomed to visit my website at [ammelsayed.tech](https://ammelsayed.tech/).
