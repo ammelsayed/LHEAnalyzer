@@ -9,30 +9,7 @@
 ##    https://github.com/ammelsayed/ROOT-Multihistogram-Plotting-Assistant    ##
 ## -------------------------------------------------------------------------- ##
 
-"""
-It takes the LHE events, And output a root file with similar
-formating to that of Delphes ROOT files.
-
-Also it can give you more intuitions to the process happening.
-You can chose to analyze the incoming particles and intermediate particles
-as well.
-
-With madgraph, this is a great physics learning machine.
-
-I will call the project
-
-""
-Particle Physicists Factory.
-""
-
-"""
-
 import ROOT
-ROOT.gROOT.SetStyle("ATLAS")
-ROOT.gROOT.SetBatch(True) 
-ROOT.gStyle.SetOptStat(0)
-ROOT.TGaxis.SetMaxDigits(4)
-
 from array import array
 import pylhe
 import os
@@ -247,67 +224,3 @@ class LHEAnalyzer:
                     tree.Write()
 
             output_root_file.Close()
-
-
-if __name__ == '__main__':
-
-    lhe = LHEAnalyzer(
-        "/data/ammelsayed/Framework/MC_Samples/signals/Signal_NewModel/Events/run_M1000_B3/unweighted_events.lhe.gz"
-    )
-
-    lhe.get_root_file()
-
-
-
-    def delta_r(eta1, phi1, eta2, phi2):
-        dphi = phi2 - phi1
-        # wrap phi into [-pi, pi]
-        while dphi > math.pi: dphi -= 2*math.pi
-        while dphi < -math.pi: dphi += 2*math.pi
-        deta = eta2 - eta1
-        return math.sqrt(deta**2 + dphi**2)
-
-    def InvariantMass(particles):
-        total_energy = 0.0
-        total_px, total_py, total_pz = 0.0, 0.0, 0.0
-
-        for particle in particles:
-            px, py, pz, e, m = particle
-            total_energy += e
-            total_px += px; total_py += py; total_pz += pz
-
-        m_squared = total_energy**2 - (total_px**2 + total_py**2 + total_pz**2)
-        if m_squared > 0:
-            return math.sqrt(m_squared)
-
-    f = ROOT.TFile("data.root", "READ")
-
-    # get Wp and Wm trees
-    W = f.Get("Final/Wm")
-    L = f.Get("Final/Leptons")
-    Sig0 =  f.Get("Intermediate/Sig0")
-
-    # create histogram
-    h_DeltaR = ROOT.TH1D("h_DeltaR_WpWm", "DeltaR(W+, W-);#DeltaR;Entries", 100, 0, 2000)
-
-    n_entries = W.GetEntries()
-    for i in range(n_entries):
-        W.GetEntry(i)
-        L.GetEntry(i)
-        Sig0.GetEntry(i)
-
-        # if L.Charge == +1:
-
-        #     dr = InvariantMass([
-        #         [W.Px, W.Py, W.Pz, W.E, W.Mass],
-        #         [L.Px, L.Py, L.Pz, L.E, L.Mass]
-        #     ])
-
-        h_DeltaR.Fill(W.Mass)
-
-    # draw
-    c = ROOT.TCanvas()
-    c.SetLogy(True)
-    c.SetCanvasSize(800,600)
-    h_DeltaR.Draw()
-    c.SaveAs("DeltaR_WpWm_per_event.pdf")
