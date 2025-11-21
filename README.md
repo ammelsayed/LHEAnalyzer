@@ -1,5 +1,5 @@
 # LHEAnalyzer
 
-This is a python class that takes '.lhe' or '.lhe.gz' files as inputs and converts them into '.root' files with similar structure to that of Delphes '.root' files.
+This is a python class that takes `.lhe` or `.lhe.gz` files as inputs and converts them into `.root` files with similar structure to that of Delphes `.root` files.
 
-By default it only analyzes the outgoing particles, and with user request it can also read and analyze the incoming and intermediate particles kinematics from the .lhe file.
+By default it only analyzes the _outgoing_ particles, and with user request it can also read and analyze the incoming and intermediate particles kinematics from the .lhe file.
