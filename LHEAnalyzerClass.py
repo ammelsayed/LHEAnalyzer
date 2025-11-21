@@ -6,7 +6,7 @@
 ## -------------------------------------------------------------------------- ##
 ##                                                                            ##
 ##    Updates On:                                                             ##
-##    https://github.com/ammelsayed/ROOT-Multihistogram-Plotting-Assistant    ##
+##    https://github.com/ammelsayed/LHEAnalyzer                               ##
 ## -------------------------------------------------------------------------- ##
 
 import ROOT
